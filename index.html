@@ -7,6 +7,26 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <section id="loginScreen" class="login-screen" aria-labelledby="loginTitle">
+    <div class="login-card">
+      <div class="login-brand-icon">🐟</div>
+      <div class="login-kicker">WELCOME BACK</div>
+      <h1 id="loginTitle">Ganesh Fish Center</h1>
+      <p class="login-subtitle">Sign in to your Billing Management System</p>
+      <form id="loginForm" autocomplete="on">
+        <label for="loginUsername">Username</label>
+        <input id="loginUsername" name="username" type="text" placeholder="Enter username" autocomplete="username" required>
+        <label for="loginPassword">Password</label>
+        <div class="password-wrap">
+          <input id="loginPassword" name="password" type="password" placeholder="Enter password" autocomplete="current-password" required>
+          <button type="button" id="togglePassword" class="password-toggle" aria-label="Show password">Show</button>
+        </div>
+        <p id="loginError" class="login-error" role="alert"></p>
+        <button type="submit" class="primary-btn login-submit">Login <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="login-footer">🐟 Fresh Fish · Best Quality</div>
+    </div>
+  </section>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand"><span class="brand-icon" id="shopLogo">🐟</span><div><strong id="shopName">Ganesh Fish Center</strong><small data-i18n="shopSystem">Shop Billing System</small></div></div>
@@ -29,6 +49,7 @@
             <option value="mr">मराठी</option>
           </select>
           <button class="primary-btn" id="headerNewBill">＋ <span data-i18n="createBill">Create Bill</span></button>
+          <button class="outline-btn" id="logoutBtn" type="button">Logout</button>
         </div>
       </header>
 
@@ -75,7 +96,7 @@
       </section>
 
       <section class="page" id="page-fish">
-        <div class="section-heading"><div><h2 data-i18n="fishCatalog">Fish Catalog</h2><p data-i18n="catalogHint">Manage fish names and selling rates per kilogram</p></div></div>
+        <div class="section-heading"><div><h2 data-i18n="fishCatalog">Admin Fish Catalog</h2><p data-i18n="catalogHint">Add, edit or remove fish names and selling rates per kilogram. Saved fish appear automatically in the New Bill list.</p></div><span class="admin-tag">ADMIN</span></div>
         <div class="panel add-fish-panel"><h3 data-i18n="addEditFish">Add / Edit Fish</h3><div class="form-grid fish-form"><label><span data-i18n="fishName">Fish Name</span><input id="newFishName" placeholder="e.g. Pomfret"></label><label><span data-i18n="pricePerKg">Price per KG (₹)</span><input id="newFishPrice" type="number" min="0.01" step="0.01" placeholder="500"></label><button class="primary-btn" id="saveFishBtn" data-i18n="saveFish">Save Fish</button></div><input type="hidden" id="editFishId"></div>
         <div class="table-wrap"><table><thead><tr><th data-i18n="fishName">Fish Name</th><th data-i18n="pricePerKg">Price per KG (₹)</th><th data-i18n="action">Action</th></tr></thead><tbody id="fishTableBody"></tbody></table></div>
       </section>

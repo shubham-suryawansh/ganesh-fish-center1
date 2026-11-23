@@ -1,3 +1,8 @@
+// Simple front-end login (demo gate only; not secure authentication).
+const LOGIN_CREDENTIALS = { username: "admin", password: "Ganesh@123" };
+const LOGIN_SESSION_KEY = "gfc_owner_session";
+if (sessionStorage.getItem(LOGIN_SESSION_KEY) !== "active") document.body.classList.add("login-locked");
+
 const $ = (id) => document.getElementById(id);
 const STORAGE = {fish:"fishShop_fish_v1", bills:"fishShop_bills_v1", counter:"fishShop_counter_v1", settings:"fishShop_settings_v2"};
 const DEFAULT_SETTINGS = {shopName:"Ganesh Fish Center", owner:"Ganesh gajare", mobile:"7840945168", address:"Nashik, Maharashtra", logo:"🐟", paymentOptions:["Cash"]};
@@ -31,7 +36,16 @@ function dateKey(value=new Date()){const d=new Date(value);return `${d.getFullYe
 function formatDate(value){return new Date(value).toLocaleDateString(language==="mr"?"mr-IN":"en-IN",{day:"2-digit",month:"short",year:"numeric"})}
 function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function notify(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600)}
-function setPage(name){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===`page-${name}`));document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===name));$("pageTitle").textContent=t(({dashboard:"dashboard",billing:"newBill",fish:"fishManage",history:"billHistory",reports:"salesReport"})[name]);if(name==="dashboard")renderDashboard();if(name==="fish")renderFish();if(name==="history")renderHistory();if(name==="reports")renderReport()}
+function setPage(name){
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===`page-${name}`));
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+  $("pageTitle").textContent=t(({dashboard:"dashboard",billing:"newBill",fish:"fishManage",history:"billHistory",reports:"salesReport"})[name]);
+  if(name==="dashboard")renderDashboard();
+  if(name==="fish")renderFish();
+  if(name==="history")renderHistory();
+  if(name==="reports")renderReport();
+}
+
 function applyLanguage(){document.documentElement.lang=language==="mr"?"mr":"en";document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(t(key))el.textContent=t(key)});$("customerName").placeholder=language==="mr"?"ग्राहकाचे नाव लिहा":"Enter customer name";$("customerMobile").placeholder=language==="mr"?"१० अंकी मोबाईल क्रमांक":"10-digit mobile number";$("historySearch").placeholder=language==="mr"?"बिल क्रमांक किंवा ग्राहकाचे नाव शोधा":"Search by bill number or customer name";$("pageTitle").textContent=document.querySelector(".nav-btn.active")?t(({dashboard:"dashboard",billing:"newBill",fish:"fishManage",history:"billHistory",reports:"salesReport"})[document.querySelector(".nav-btn.active").dataset.page]):t("dashboard");renderFishOptions();renderCart();renderDashboard();renderFish();renderHistory();renderReport()}
 function renderFishOptions(){const select=$("fishSelect");const previous=select.value;select.innerHTML=fish.map(f=>`<option value="${f.id}">${escapeHTML(f.name)} — ${money(f.price)}/KG</option>`).join("");if(fish.some(f=>f.id===previous))select.value=previous}
 function cartTotals(){const kg=cart.reduce((s,i)=>s+i.weight,0),subtotal=cart.reduce((s,i)=>s+i.weight*i.price,0);return {kg,subtotal}}
@@ -55,6 +69,40 @@ function backupData(){const payload={app:"Ganesh Fish Center Billing System",ver
 function restoreData(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!Array.isArray(data.fish)||!Array.isArray(data.bills))throw new Error("Invalid backup");if(!confirm("Restore this backup? Current fish and bill data will be replaced."))return;fish=data.fish;bills=data.bills;settings={...DEFAULT_SETTINGS,...(data.settings||{})};localStorage.setItem(STORAGE.counter,String(Number(data.counter)||bills.length));save();saveSettings();renderFishOptions();renderFish();renderDashboard();renderHistory();renderReport();notify("Backup restored successfully.")}catch(e){notify("Could not restore: invalid backup file.")}};reader.readAsText(file)}
 function renderReport(){const date=$("reportDate").value||dateKey();const list=bills.filter(b=>dateKey(b.createdAt)===date);$("reportSales").textContent=money(list.reduce((s,b)=>s+b.total,0));$("reportBills").textContent=list.length;$("reportKg").textContent=list.reduce((s,b)=>s+b.kg,0).toFixed(2)+" KG";const aggregate={};list.forEach(b=>b.items.forEach(i=>{aggregate[i.name]??={kg:0,amount:0};aggregate[i.name].kg+=i.weight;aggregate[i.name].amount+=i.weight*i.price}));$("reportFishBody").innerHTML=Object.entries(aggregate).map(([name,v])=>`<tr><td>${escapeHTML(name)}</td><td>${v.kg.toFixed(2)} KG</td><td class="amount-cell">${money(v.amount)}</td></tr>`).join("")||`<tr><td colspan="3" class="empty-row">${t("noBills")}</td></tr>`}
 function clearBill(){if(!cart.length&&!$("customerName").value.trim())return;if(!confirm(t("confirmClear")))return;cart=[];$("customerName").value="";$("customerMobile").value="";$("discount").value="0";renderCart();notify(t("billCleared"))}
+// Login and logout controls are registered once when the app loads.
+const loginForm = $("loginForm");
+loginForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const username = $("loginUsername").value.trim();
+  const password = $("loginPassword").value;
+  if (username === LOGIN_CREDENTIALS.username && password === LOGIN_CREDENTIALS.password) {
+    sessionStorage.setItem(LOGIN_SESSION_KEY, "active");
+    document.body.classList.remove("login-locked");
+    $("loginError").textContent = "";
+    loginForm.reset();
+    $("customerName").focus();
+  } else {
+    $("loginError").textContent = "Incorrect username or password. Please try again.";
+    $("loginPassword").value = "";
+    $("loginPassword").focus();
+  }
+});
+$("togglePassword").addEventListener("click", () => {
+  const field = $("loginPassword");
+  const show = field.type === "password";
+  field.type = show ? "text" : "password";
+  $("togglePassword").textContent = show ? "Hide" : "Show";
+  $("togglePassword").setAttribute("aria-label", show ? "Hide password" : "Show password");
+});
+$("logoutBtn").addEventListener("click", () => {
+  sessionStorage.removeItem(LOGIN_SESSION_KEY);
+  document.body.classList.add("login-locked");
+  $("loginError").textContent = "";
+  $("loginUsername").value = "";
+  $("loginPassword").value = "";
+  $("loginUsername").focus();
+});
+
 document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>setPage(b.dataset.page)));
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>setPage(b.dataset.go)));
 $("headerNewBill").addEventListener("click",()=>setPage("billing"));

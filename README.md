@@ -46,3 +46,19 @@ A simple, responsive fish-shop billing web app. It runs locally in a modern brow
 - `index.html` – app layout
 - `style.css` – responsive styling
 - `app.js` – billing logic, receipts, reports, and LocalStorage
+
+## Owner Login (Simple Mode)
+
+Default demo credentials:
+- Username: `admin`
+- Password: `Ganesh@123`
+
+Use the Logout button in the billing dashboard to end the current browser-tab session. The login session is stored in `sessionStorage`.
+
+**Security note:** This is a basic front-end access screen only. The username and password are present in the JavaScript source and can be discovered or bypassed by visitors. Do not use it to protect sensitive business or customer data. For real security, use a server-backed authentication service (for example, Firebase Authentication) and enforce authorization for data access.
+
+
+## Admin fish catalog
+After logging in, open **Fish Management / Admin Fish Catalog**. Enter a fish name and its selling rate per kilogram, then choose **Save Fish**. The new fish is saved in this browser and becomes available immediately in the **New Bill** fish selector. Use **Edit** to change a name or rate, and **Delete** to remove a fish from the catalog. Previously saved bills keep their original item names and rates.
+
+Note: the simple front-end login is a convenience gate only. It is not secure authentication; credentials can be inspected in the website source.

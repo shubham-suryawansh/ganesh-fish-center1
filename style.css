@@ -6,3 +6,82 @@
 /* Version 2.0 report utilities */
 .report-heading{flex-wrap:wrap;gap:12px}.report-actions{display:flex;gap:8px;flex-wrap:wrap}.import-label{display:inline-flex;align-items:center;cursor:pointer;font:700 13px inherit}.import-label:hover{border-color:#68b7e2;color:var(--blue)}
 @media(max-width:700px){.report-actions{width:100%}.report-actions>*{flex:1;text-align:center;white-space:nowrap}.report-heading .date-filter{width:100%}}
+
+
+/* Simple owner login */
+body.login-locked{background:linear-gradient(135deg,#0c2942 0%,#0e638f 55%,#1595b8 100%);min-height:100vh}
+body.login-locked .app-shell{display:none}
+.login-screen{display:none;min-height:100vh;padding:28px 16px;align-items:center;justify-content:center}
+body.login-locked .login-screen{display:flex}
+.login-card{width:min(100%,430px);background:#fff;border:1px solid #e4edf4;border-radius:22px;padding:38px 36px 28px;box-shadow:0 24px 70px #061a2b55;text-align:left}
+.login-brand-icon{width:66px;height:66px;border-radius:20px;background:linear-gradient(135deg,#1479bd,#16a0bd);display:grid;place-items:center;font-size:35px;margin:0 auto 20px;box-shadow:0 9px 22px #1479bd35}
+.login-kicker{text-align:center;font-size:10px;letter-spacing:2px;font-weight:800;color:#1683b4}
+.login-card h1{text-align:center;font-size:25px;margin:8px 0 7px;color:#102a43}
+.login-subtitle{text-align:center;color:#7b8ba0;font-size:12px;margin:0 0 28px}
+.login-card form>label{display:block;font-size:12px;font-weight:700;color:#52647b;margin:15px 0 7px}
+.login-card input{width:100%;border:1px solid #dce6ef;border-radius:10px;padding:13px 14px;outline:none;background:#fbfdff}
+.login-card input:focus{border-color:#55a9d5;box-shadow:0 0 0 3px #e8f5fc}
+.password-wrap{position:relative}.password-wrap input{padding-right:65px}
+.password-toggle{position:absolute;right:9px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#1479bd;font-weight:700;font-size:11px;cursor:pointer;padding:7px}
+.login-submit{width:100%;margin-top:16px;padding:13px 16px;display:flex;justify-content:center;gap:10px}
+.login-error{min-height:16px;margin:9px 0 0;color:#c0392b;font-size:11px}
+.login-footer{text-align:center;color:#95a4b4;font-size:11px;border-top:1px solid #edf1f5;margin-top:22px;padding-top:18px}
+#logoutBtn{white-space:nowrap}
+@media(max-width:480px){.login-card{padding:30px 22px 24px;border-radius:18px}.login-card h1{font-size:22px}}
+
+/* Admin fish catalog label */
+.admin-tag{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:#e7f5fc;color:#126b9f;font-size:10px;font-weight:800;letter-spacing:1px}
+
+
+/* ===== Ganesh Fish Center | Premium visual refresh ===== */
+:root{--navy:#082f3d;--blue:#087f8c;--blue-dark:#06636e;--bg:#f3f8f7;--text:#15343b;--muted:#71868a;--line:#e1ece9;--green:#15966a;--shadow:0 14px 36px rgba(8,47,61,.075)}
+body{background:radial-gradient(circle at 85% 0%,#e2f4ef 0,transparent 30%),var(--bg);color:var(--text)}
+.sidebar{background:linear-gradient(180deg,#062f3c 0%,#084958 100%);box-shadow:12px 0 36px rgba(8,47,61,.10);padding:30px 18px}
+.brand-icon{background:linear-gradient(135deg,#19b6a2,#087f8c);box-shadow:0 8px 18px #031f2b66;border-radius:15px}
+.nav-btn{border:1px solid transparent;border-radius:12px;padding:14px 13px;transition:all .2s ease}
+.nav-btn:hover{background:#ffffff12;transform:translateX(2px)}
+.nav-btn.active{background:linear-gradient(100deg,#0e8290,#116575);box-shadow:0 8px 18px #031f2b44;color:#fff;border-color:#ffffff18}
+.main-content{padding:32px 42px 24px}
+.topbar{margin-bottom:29px}.eyebrow{color:#0b8b87;letter-spacing:2px}
+.topbar h1{font-size:30px;letter-spacing:-1px;color:#10343d}
+#languageSelect{border-radius:12px;padding:11px 14px;border-color:#dce9e6}
+.primary-btn,.outline-btn,.light-btn{border-radius:11px;padding:12px 17px;transition:transform .18s,box-shadow .18s,background .18s}
+.primary-btn{background:linear-gradient(135deg,#0c9291,#08717e);box-shadow:0 7px 16px #087f8c26}
+.primary-btn:hover{background:linear-gradient(135deg,#087b7d,#075d69);transform:translateY(-1px);box-shadow:0 10px 20px #087f8c30}
+.outline-btn{border-color:#dce9e6}.outline-btn:hover{border-color:#8bc7bd;background:#f7fcfa}
+.hero-card{position:relative;isolation:isolate;background:linear-gradient(115deg,#063b49 0%,#087f8c 62%,#16a79a 100%);border-radius:22px;padding:34px 38px;min-height:205px;box-shadow:0 18px 36px #075d6925}
+.hero-card:after{content:"";position:absolute;z-index:-1;width:310px;height:310px;border:1px solid #ffffff20;border-radius:50%;right:7%;top:-135px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff06}
+.hero-tag{color:#a8eee1}.hero-card h2{font-size:29px;letter-spacing:-.8px}.hero-card p{color:#d7f3ed;line-height:1.6}
+.hero-emoji{font-size:112px;filter:drop-shadow(0 14px 18px #032d3b77)}
+.stats-grid{gap:18px;margin:24px 0 34px}
+.stat-card{border:1px solid #e5eeeb;border-radius:17px;padding:20px;box-shadow:0 8px 24px rgba(8,47,61,.045);transition:transform .2s,box-shadow .2s}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(8,47,61,.09)}
+.stat-card strong{font-size:28px;letter-spacing:-1px;color:#103b43}.stat-icon{width:40px;height:40px;border-radius:13px}
+.blue{background:#e0f4f1;color:#087f8c}.orange{background:#fff1df;color:#c57b25}.green{background:#e2f6eb;color:#15966a}.purple{background:#f0eaff;color:#8057c5}
+.section-heading{margin:29px 0 15px}.section-heading h2,.panel-heading h2{font-size:19px;letter-spacing:-.35px;color:#173b43}
+.section-heading p,.panel-heading p{line-height:1.5}
+.table-wrap,.panel{border:1px solid #e3eeeb;border-radius:17px;box-shadow:0 9px 26px rgba(8,47,61,.045)}
+th{background:#f3f9f7;color:#698184;padding-top:15px;padding-bottom:15px}td{padding-top:15px;padding-bottom:15px}
+tbody tr:hover{background:#f8fcfb}.panel{padding:24px}.panel-heading{margin-bottom:22px}
+.step-pill{background:#e1f4ef;color:#087f8c;border-radius:9px}
+.form-grid input,.add-row input,.add-row select,.discount-label input,.search-panel input,.date-filter input{border-color:#dce9e6;border-radius:11px;padding:12px 13px;transition:border .18s,box-shadow .18s}
+.form-grid input:focus,.add-row input:focus,.add-row select:focus,.discount-label input:focus,.search-panel input:focus{border-color:#55b8aa;box-shadow:0 0 0 4px #e5f6f2}
+.items-heading{border-top-color:#e6efed}.summary-panel{border-color:#dcebe7}
+.grand-total{background:linear-gradient(135deg,#e4f6f0,#e5f4f6);border:1px solid #d8eee8;border-radius:13px}.grand-total strong{color:#087f8c}
+.add-fish-panel{background:linear-gradient(145deg,#fff,#f7fcfa)}
+.admin-tag{background:#e0f5ee;color:#087d69;border:1px solid #ccebe0;border-radius:999px;padding:7px 12px;font-size:10px;font-weight:800;letter-spacing:1px}
+.small-btn{border-radius:9px;padding:7px 11px}.toast{background:#073b48;border:1px solid #ffffff20;border-radius:12px}
+footer{color:#91a5a3}
+body.login-locked{background:radial-gradient(circle at 15% 18%,#20b5a333 0,transparent 27%),radial-gradient(circle at 85% 82%,#36c6a933 0,transparent 25%),linear-gradient(135deg,#052d3b 0%,#075b68 52%,#0b8d89 100%)}
+body.login-locked:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#ffffff 1px,transparent 1px);background-size:24px 24px}
+.login-screen{position:relative}.login-card{position:relative;width:min(100%,460px);padding:42px 40px 30px;border:1px solid #ffffffa6;border-radius:27px;box-shadow:0 30px 90px #001b2b70;background:linear-gradient(145deg,#fff 0%,#f8fcfb 100%)}
+.login-card:before{content:"";position:absolute;left:0;right:0;top:0;height:6px;border-radius:27px 27px 0 0;background:linear-gradient(90deg,#16b69e,#087f8c,#0a6374)}
+.login-brand-icon{width:76px;height:76px;border-radius:23px;background:linear-gradient(145deg,#18b9a2,#087582);box-shadow:0 12px 25px #087f8c40;font-size:39px}
+.login-kicker{color:#0a8b83;letter-spacing:2.6px}.login-card h1{font-size:28px;letter-spacing:-.8px;color:#103943}
+.login-subtitle{font-size:13px;line-height:1.6;color:#789093}.login-card form>label{color:#31565a;font-size:12px}
+.login-card input{border:1px solid #d9e9e5;border-radius:12px;padding:14px 15px;background:#fbfefd}
+.login-card input:focus{border-color:#4eb5a6;box-shadow:0 0 0 4px #e4f6f1}
+.login-submit{border-radius:12px;background:linear-gradient(100deg,#0b9290,#086c79);box-shadow:0 9px 20px #087f8c30}
+.login-submit:hover{background:linear-gradient(100deg,#087a7e,#075b68)}.login-footer{color:#789391;border-top-color:#e7f0ed}
+@media(max-width:1100px){.main-content{padding:26px 25px}}
+@media(max-width:700px){.sidebar{background:linear-gradient(100deg,#062f3c,#084958);padding:13px}.brand{padding-bottom:13px}.main-content{padding:18px 13px}.topbar h1{font-size:24px}.hero-card{border-radius:18px;padding:23px;min-height:170px}.hero-card h2{font-size:22px}.hero-emoji{font-size:68px}.stat-card{border-radius:14px}.panel{border-radius:15px;padding:16px}.login-card{padding:34px 23px 25px;border-radius:22px}.login-card h1{font-size:24px}}
