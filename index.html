@@ -115,9 +115,35 @@
           <article class="stat-card"><span data-i18n="totalFishWeight">Total Fish Weight</span><strong id="reportKg">0.00 KG</strong></article>
         </div>
         <div class="table-wrap"><table><thead><tr><th data-i18n="fishName">Fish Name</th><th data-i18n="quantitySold">Quantity Sold</th><th data-i18n="salesAmount">Sales Amount</th></tr></thead><tbody id="reportFishBody"></tbody></table></div>
+        <section class="danger-zone panel">
+          <div class="danger-copy">
+            <span class="danger-kicker">ADMIN ONLY · DESTRUCTIVE ACTION</span>
+            <h3>Clear All Transactions</h3>
+            <p>Remove all saved bills, bill history and sales totals from this browser. Your fish catalog and shop settings will remain unchanged.</p>
+          </div>
+          <button class="danger-btn" id="openClearTransactions">🗑 Clear All Transactions</button>
+        </section>
       </section>
       <footer>🐟 <strong id="footerShopName">Ganesh Fish Center</strong> · <span data-i18n="footerText">Fish Shop Billing System</span> · <span id="year"></span></footer>
     </main>
+  </div>
+
+  <div class="modal-backdrop" id="clearTransactionsModal" hidden>
+    <section class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="clearModalTitle">
+      <div class="modal-alert-icon">!</div>
+      <span class="danger-kicker">ADMIN SECURITY CHECK</span>
+      <h2 id="clearModalTitle">Clear all transactions?</h2>
+      <p>This permanently deletes all saved bills and resets the next bill number. Fish names, rates and shop settings will be kept.</p>
+      <label for="clearAdminPassword">Admin password</label>
+      <input id="clearAdminPassword" type="password" autocomplete="current-password" placeholder="Enter admin password">
+      <label for="clearConfirmText">Type <strong>CLEAR</strong> to confirm</label>
+      <input id="clearConfirmText" type="text" autocomplete="off" placeholder="Type CLEAR">
+      <p class="modal-error" id="clearModalError" role="alert"></p>
+      <div class="modal-actions">
+        <button class="outline-btn" id="cancelClearTransactions" type="button">Cancel</button>
+        <button class="danger-btn" id="confirmClearTransactions" type="button">Delete all transactions</button>
+      </div>
+    </section>
   </div>
   <div id="toast" class="toast" role="status"></div>
   <script src="app.js"></script>

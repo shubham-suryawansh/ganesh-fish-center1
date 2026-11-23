@@ -117,6 +117,52 @@ $("historySearch").addEventListener("input",renderHistory);
 $("reportDate").addEventListener("change",renderReport);
 $("exportCsvBtn").addEventListener("click",exportCsv);
 $("backupBtn").addEventListener("click",backupData);
+
+$("openClearTransactions").addEventListener("click", () => {
+  $("clearAdminPassword").value = "";
+  $("clearConfirmText").value = "";
+  $("clearModalError").textContent = "";
+  $("clearTransactionsModal").hidden = false;
+  $("clearAdminPassword").focus();
+});
+function closeClearTransactionsModal() {
+  $("clearTransactionsModal").hidden = true;
+  $("clearAdminPassword").value = "";
+  $("clearConfirmText").value = "";
+  $("clearModalError").textContent = "";
+}
+$("cancelClearTransactions").addEventListener("click", closeClearTransactionsModal);
+$("clearTransactionsModal").addEventListener("click", (event) => {
+  if (event.target === $("clearTransactionsModal")) closeClearTransactionsModal();
+});
+$("confirmClearTransactions").addEventListener("click", () => {
+  const password = $("clearAdminPassword").value;
+  const confirmation = $("clearConfirmText").value.trim();
+  if (password !== LOGIN_CREDENTIALS.password) {
+    $("clearModalError").textContent = "Incorrect admin password. No data was deleted.";
+    $("clearAdminPassword").focus();
+    return;
+  }
+  if (confirmation !== "CLEAR") {
+    $("clearModalError").textContent = 'Please type CLEAR exactly to confirm.';
+    $("clearConfirmText").focus();
+    return;
+  }
+  bills = [];
+  cart = [];
+  localStorage.setItem(STORAGE.bills, JSON.stringify([]));
+  localStorage.setItem(STORAGE.counter, "0");
+  $("customerName").value = "";
+  $("customerMobile").value = "";
+  $("discount").value = "0";
+  renderCart();
+  renderDashboard();
+  renderHistory();
+  renderReport();
+  closeClearTransactionsModal();
+  notify("All transaction history cleared. Fish catalog and shop settings were kept.");
+});
+
 $("restoreInput").addEventListener("change",e=>{restoreData(e.target.files[0]);e.target.value=""});
 $("year").textContent=new Date().getFullYear();
 applyShopBranding();
