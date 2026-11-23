@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ganesh Fish Center | Billing System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon" id="shopLogo">🐟</span><div><strong id="shopName">Ganesh Fish Center</strong><small data-i18n="shopSystem">Shop Billing System</small></div></div>
+      <nav>
+        <button class="nav-btn active" data-page="dashboard"><span>▦</span><span data-i18n="dashboard">Dashboard</span></button>
+        <button class="nav-btn" data-page="billing"><span>＋</span><span data-i18n="newBill">New Bill</span></button>
+        <button class="nav-btn" data-page="fish"><span>🐠</span><span data-i18n="fishManage">Fish Management</span></button>
+        <button class="nav-btn" data-page="history"><span>▤</span><span data-i18n="billHistory">Bill History</span></button>
+        <button class="nav-btn" data-page="reports"><span>▥</span><span data-i18n="salesReport">Sales Report</span></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="status-dot"></div><span data-i18n="localData">Data saved on this device</span></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><div class="eyebrow" data-i18n="welcome">WELCOME</div><h1 id="pageTitle">Dashboard</h1></div>
+        <div class="top-actions">
+          <select id="languageSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="mr">मराठी</option>
+          </select>
+          <button class="primary-btn" id="headerNewBill">＋ <span data-i18n="createBill">Create Bill</span></button>
+        </div>
+      </header>
+
+      <section class="page active" id="page-dashboard">
+        <div class="hero-card"><div><span class="hero-tag" data-i18n="shopOverview">SHOP OVERVIEW</span><h2 data-i18n="freshDay">Fresh sales. Simple billing.</h2><p data-i18n="heroText">Manage fish sales and print customer receipts in seconds.</p><button class="light-btn" data-go="billing" data-i18n="startBilling">Start Billing →</button></div><div class="hero-emoji">🐟</div></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon blue">₹</div><span data-i18n="todaySales">Today's Sales</span><strong id="todaySales">₹0.00</strong><small data-i18n="salesToday">Total sales today</small></article>
+          <article class="stat-card"><div class="stat-icon orange">▤</div><span data-i18n="totalBills">Total Bills</span><strong id="todayBills">0</strong><small data-i18n="billsToday">Bills generated today</small></article>
+          <article class="stat-card"><div class="stat-icon green">⚖</div><span data-i18n="fishSold">Fish Sold</span><strong id="todayKg">0.00 KG</strong><small data-i18n="quantityToday">Quantity sold today</small></article>
+          <article class="stat-card"><div class="stat-icon purple">🐠</div><span data-i18n="fishTypes">Fish Types</span><strong id="fishCount">0</strong><small data-i18n="availableCatalog">Available in catalog</small></article>
+        </div>
+        <div class="section-heading"><div><h2 data-i18n="recentBills">Recent Bills</h2><p data-i18n="latestTransactions">Latest customer transactions</p></div><button class="text-btn" data-go="history" data-i18n="viewAll">View all →</button></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="billNo">Bill No.</th><th data-i18n="customer">Customer</th><th data-i18n="date">Date</th><th data-i18n="amount">Amount</th><th data-i18n="action">Action</th></tr></thead><tbody id="recentBillsBody"></tbody></table></div>
+      </section>
+
+      <section class="page" id="page-billing">
+        <div class="billing-layout">
+          <div class="panel bill-entry">
+            <div class="panel-heading"><div><h2 data-i18n="customerDetails">Customer Details</h2><p data-i18n="optionalCustomer">Add customer information (optional)</p></div><span class="step-pill">01</span></div>
+            <div class="form-grid">
+              <label><span data-i18n="customerName">Customer Name</span><input id="customerName" placeholder="Enter customer name"></label>
+              <label><span data-i18n="mobileNumber">Mobile Number</span><input id="customerMobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number"></label>
+            </div>
+            <div class="panel-heading items-heading"><div><h2 data-i18n="fishItems">Fish Items</h2><p data-i18n="addFishWeight">Add fish and enter weight in kilograms</p></div><span class="step-pill">02</span></div>
+            <div class="add-row">
+              <label class="grow"><span data-i18n="selectFish">Select Fish</span><select id="fishSelect"></select></label>
+              <label class="weight-field"><span data-i18n="weightKg">Weight (KG)</span><input id="fishWeight" type="number" min="0.01" step="0.01" placeholder="1.00"></label>
+              <button class="primary-btn add-btn" id="addItemBtn">＋ <span data-i18n="addItem">Add Item</span></button>
+            </div>
+            <div class="table-wrap item-table-wrap"><table><thead><tr><th data-i18n="fish">Fish</th><th data-i18n="rate">Rate/KG</th><th data-i18n="weight">Weight</th><th data-i18n="total">Total</th><th></th></tr></thead><tbody id="cartBody"></tbody></table></div>
+            <div class="empty-cart" id="emptyCart"><span>🧺</span><strong data-i18n="cartEmpty">Your bill is empty</strong><small data-i18n="cartHint">Select a fish and add its weight to begin.</small></div>
+          </div>
+          <aside class="panel summary-panel">
+            <div class="panel-heading"><div><h2 data-i18n="billSummary">Bill Summary</h2><p data-i18n="checkTotal">Check the final amount</p></div><span class="step-pill">03</span></div>
+            <div class="summary-line"><span data-i18n="totalWeight">Total Weight</span><strong id="summaryKg">0.00 KG</strong></div>
+            <div class="summary-line"><span data-i18n="subtotal">Subtotal</span><strong id="subtotal">₹0.00</strong></div>
+            <label class="discount-label"><span data-i18n="discountRupees">Discount (₹)</span><input id="discount" type="number" min="0" step="0.01" value="0"></label>
+            <div class="grand-total"><span data-i18n="grandTotal">Grand Total</span><strong id="grandTotal">₹0.00</strong></div>
+            <button class="primary-btn full-btn" id="generateBillBtn" data-i18n="generatePrint">Generate & Print Bill</button>
+            <button class="outline-btn full-btn" id="clearBillBtn" data-i18n="clearBill">Clear Bill</button>
+            <p class="hint" data-i18n="printHint">A thermal receipt preview will open. Choose your thermal printer in the print dialog.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page" id="page-fish">
+        <div class="section-heading"><div><h2 data-i18n="fishCatalog">Fish Catalog</h2><p data-i18n="catalogHint">Manage fish names and selling rates per kilogram</p></div></div>
+        <div class="panel add-fish-panel"><h3 data-i18n="addEditFish">Add / Edit Fish</h3><div class="form-grid fish-form"><label><span data-i18n="fishName">Fish Name</span><input id="newFishName" placeholder="e.g. Pomfret"></label><label><span data-i18n="pricePerKg">Price per KG (₹)</span><input id="newFishPrice" type="number" min="0.01" step="0.01" placeholder="500"></label><button class="primary-btn" id="saveFishBtn" data-i18n="saveFish">Save Fish</button></div><input type="hidden" id="editFishId"></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="fishName">Fish Name</th><th data-i18n="pricePerKg">Price per KG (₹)</th><th data-i18n="action">Action</th></tr></thead><tbody id="fishTableBody"></tbody></table></div>
+      </section>
+
+      <section class="page" id="page-history">
+        <div class="section-heading"><div><h2 data-i18n="billHistory">Bill History</h2><p data-i18n="searchPast">Search and reprint previous customer bills</p></div></div>
+        <div class="panel search-panel"><input id="historySearch" placeholder="Search by bill number or customer name"><span>⌕</span></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="billNo">Bill No.</th><th data-i18n="customer">Customer</th><th data-i18n="date">Date</th><th data-i18n="weight">Weight</th><th data-i18n="amount">Amount</th><th data-i18n="action">Action</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+      </section>
+
+      <section class="page" id="page-reports">
+        <div class="section-heading report-heading"><div><h2 data-i18n="salesReport">Sales Report</h2><p data-i18n="dailySummary">Daily sales summary from saved bills</p></div><div class="report-actions"><button class="outline-btn" id="exportCsvBtn">Export CSV</button><button class="outline-btn" id="backupBtn">Backup Data</button><label class="outline-btn import-label">Restore Backup<input type="file" id="restoreInput" accept="application/json" hidden></label></div><label class="date-filter"><span data-i18n="selectDate">Select Date</span><input type="date" id="reportDate"></label></div>
+        <div class="stats-grid report-stats">
+          <article class="stat-card"><span data-i18n="totalSales">Total Sales</span><strong id="reportSales">₹0.00</strong></article>
+          <article class="stat-card"><span data-i18n="bills">Bills</span><strong id="reportBills">0</strong></article>
+          <article class="stat-card"><span data-i18n="totalFishWeight">Total Fish Weight</span><strong id="reportKg">0.00 KG</strong></article>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="fishName">Fish Name</th><th data-i18n="quantitySold">Quantity Sold</th><th data-i18n="salesAmount">Sales Amount</th></tr></thead><tbody id="reportFishBody"></tbody></table></div>
+      </section>
+      <footer>🐟 <strong id="footerShopName">Ganesh Fish Center</strong> · <span data-i18n="footerText">Fish Shop Billing System</span> · <span id="year"></span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
